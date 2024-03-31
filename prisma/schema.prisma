@@ -17,6 +17,25 @@ model Book {
   id Int @id @default(autoincrement())
   title String
   description String
+  authors BookAuthors[]
 
   @@map("books")
+}
+
+model Author {
+  id Int @id @default(autoincrement())
+  name String
+  books BookAuthors[]
+
+  @@map("authors")
+}
+
+model BookAuthors {
+  book Book     @relation(fields: [bookId], references: [id])
+  bookId Int
+  author Author @relation(fields: [authorId], references: [id])
+  authorId Int
+
+  @@id([bookId, authorId])
+  @@map("books_authors")
 }
