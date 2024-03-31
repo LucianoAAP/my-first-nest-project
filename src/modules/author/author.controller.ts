@@ -36,6 +36,15 @@ export class AuthorController {
 
   @Delete(':id')
   async delete(@Param('id') id: string) {
-    return this.authorService.delete(Number(id));
+    await this.authorService.delete(Number(id));
+    return 'Livro apagado com sucesso';
+  }
+
+  @Post(':id/associateBook/:bookId')
+  async associateBook(
+    @Param('id') id: string,
+    @Param('bookId') bookId: string,
+  ) {
+    return this.authorService.addBook(Number(id), Number(bookId));
   }
 }
